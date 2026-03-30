@@ -1,5 +1,5 @@
 .card {
-  flex: 1 1 240px;
+  flex: 0 1 320px;
   max-width: 320px;
   padding: 16px 20px;
   border: 1px solid #ddd;
@@ -12,6 +12,11 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 4px;
+}
+
+.card-title-row .buttons {
+  display: flex;
+  gap: 6px;
 }
 
 .card-title-row h2 {

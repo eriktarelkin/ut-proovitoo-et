@@ -1,5 +1,6 @@
 import { useState } from "react"
-import { useWeather } from "./hooks/useWeather"
+import { useWeather, loadCards } from "./hooks/useWeather"
+import { WeatherData } from "./types"
 import { Card } from "./components/Card/Card"
 import { Button } from "./components/Button/Button"
 import "./App.css"
@@ -7,7 +8,7 @@ import "./App.css"
 type AddMode = "city" | "coords"
 
 export const App = () => {
-  const { cards, loading, error, addByCity, addByCoords, updateCard, deleteLocation } = useWeather()
+  const { cards, loading, updatingId, initializing, error, addByCity, addByCoords, updateCard, deleteLocation } = useWeather()
 
   const [mode, setMode] = useState<AddMode>("city")
   const [cityInput, setCityInput] = useState("")
@@ -86,25 +87,55 @@ export const App = () => {
 
       {error && <p className="status error">{error}</p>}
 
-      {!loading && cards.length === 0 && (
+      {!loading && !initializing && cards.length === 0 && (
         <p className="status">Add a city to get started</p>
       )}
 
       <div className="cards">
-        {cards.map((card) => (
+        {initializing
+          ? loadCards().map((card: WeatherData, i: number) => (
+              <Card
+                key={i}
+                loading={updatingId === card.id}
+                location={card.location}
+                latitude={card.latitude}
+                longitude={card.longitude}
+                temperature={card.temperature}
+                windSpeed={card.windSpeed}
+                rain={card.rain}
+                updatedAt={card.updatedAt}
+                onDelete={() => {}}
+                onEdit={() => {}}
+              />
+            ))
+          : cards.map((card) => (
+              <Card
+                key={card.id}
+                location={card.location}
+                latitude={card.latitude}
+                longitude={card.longitude}
+                temperature={card.temperature}
+                windSpeed={card.windSpeed}
+                rain={card.rain}
+                updatedAt={card.updatedAt}
+                onDelete={() => deleteLocation(card.id)}
+                onEdit={(update) => updateCard(card.id, update)}
+              />
+            ))}
+        {loading && !updatingId && (
           <Card
-            key={card.id}
-            location={card.location}
-            latitude={card.latitude}
-            longitude={card.longitude}
-            temperature={card.temperature}
-            windSpeed={card.windSpeed}
-            rain={card.rain}
-            updatedAt={card.updatedAt}
-            onDelete={() => deleteLocation(card.id)}
-            onEdit={(update) => updateCard(card.id, update)}
+            loading
+            location=""
+            latitude={0}
+            longitude={0}
+            temperature={0}
+            windSpeed={0}
+            rain={0}
+            updatedAt={0}
+            onDelete={() => {}}
+            onEdit={() => {}}
           />
-        ))}
+        )}
       </div>
     </div>
   )

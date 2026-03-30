@@ -4,7 +4,7 @@ import { WeatherData } from "../types"
 
 const STORAGE_KEY = "weather_cards"
 
-const loadCards = (): WeatherData[] => {
+export const loadCards = (): WeatherData[] => {
   try {
     const stored = localStorage.getItem(STORAGE_KEY)
     return stored ? JSON.parse(stored) : []
@@ -26,6 +26,8 @@ export type CardUpdate = {
 export const useWeather = () => {
   const [cards, setCards] = useState<WeatherData[]>(loadCards)
   const [loading, setLoading] = useState(false)
+  const [updatingId, setUpdatingId] = useState<number | null>(null)
+  const [initializing, setInitializing] = useState(() => loadCards().length > 0)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -51,9 +53,10 @@ export const useWeather = () => {
       )
 
       setCards(refreshed)
+      setInitializing(false)
     }
 
-    refreshAll()
+    refreshAll().catch(() => setInitializing(false))
   }, [])
 
   useEffect(() => {
@@ -123,6 +126,7 @@ export const useWeather = () => {
 
   const updateCard = async (id: number, update: CardUpdate) => {
     try {
+      setUpdatingId(id)
       setLoading(true)
       setError(null)
 
@@ -148,6 +152,7 @@ export const useWeather = () => {
       setError(err instanceof Error ? err.message : "Could not update location")
     } finally {
       setLoading(false)
+      setUpdatingId(null) 
     }
   }
 
@@ -158,7 +163,9 @@ export const useWeather = () => {
   return {
     cards,
     loading,
+    initializing,
     error,
+    updatingId,
     addByCity,
     addByCoords,
     updateCard,

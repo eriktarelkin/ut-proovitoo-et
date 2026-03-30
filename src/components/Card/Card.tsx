@@ -3,14 +3,17 @@ import { WeatherData } from "../../types"
 import { CardUpdate } from "../../hooks/useWeather"
 import { getCoordinates } from "../../services/weatherApi"
 import { Button } from "../Button/Button"
+import { Skeleton, SkeletonGroup } from "../Skeleton/Skeleton"
 import "./Card.css"
 
 type Props = Omit<WeatherData, "id"> & {
+  loading?: boolean
   onDelete: () => void
   onEdit: (update: CardUpdate) => void
 }
 
 export const Card = ({
+  loading = false,
   location,
   latitude,
   longitude,
@@ -76,9 +79,9 @@ export const Card = ({
             <input
               className="card-edit-input"
               value={nameInput}
-              onChange={(e) => { 
-                setNameInput(e.target.value) 
-                setCoordsError(null) 
+              onChange={(e) => {
+                setNameInput(e.target.value)
+                setCoordsError(null)
               }}
               onKeyDown={(e) => e.key === "Escape" && handleCancel()}
               placeholder="e.g. Home, Office..."
@@ -122,18 +125,56 @@ export const Card = ({
         </div>
       ) : (
         <div className="card-title-row">
-          <h2>{location}</h2>
-          <Button variant="secondary" label="Edit" onClick={() => setEditing(true)} />
+          <h2>
+            {loading
+              ? <Skeleton shape="text" width="55%" style={{ fontSize: "1.1rem" }} />
+              : location}
+          </h2>
+          <div className="buttons">
+            {!loading && (
+              <Button
+                variant="secondary"
+                label="Edit"
+                onClick={() => setEditing(true)}
+              />
+            )}
+
+            {loading ? (
+              <Skeleton width="72px" height="34px" shape="rounded" />
+            ) : (
+              <Button variant="danger" label="Delete" onClick={onDelete} />
+            )}
+          </div>
         </div>
       )}
 
-      <p className="card-coords">{latitude.toFixed(4)}, {longitude.toFixed(4)}</p>
-      <p>Temperature: {temperature}°C</p>
-      <p>Wind Speed: {windSpeed} m/s</p>
-      <p>Rain: {rain} mm</p>
-      <p className="updated-at">Updated: {lastUpdated}</p>
+      <p className="card-coords">
+        {loading
+          ? <Skeleton shape="text" width="42%" style={{ fontSize: "0.78rem" }} />
+          : `${latitude.toFixed(4)}, ${longitude.toFixed(4)}`}
+      </p>
 
-      <Button variant="danger" label="Delete" onClick={onDelete} />
+      {loading ? (
+        <SkeletonGroup gap="6px" style={{ marginBottom: "8px" }}>
+          <Skeleton shape="text" width="75%" />
+          <Skeleton shape="text" width="60%" />
+          <Skeleton shape="text" width="50%" />
+        </SkeletonGroup>
+      ) : (
+        <>
+          <p>Temperature: {temperature}°C</p>
+          <p>Wind Speed: {windSpeed} m/s</p>
+          <p>Rain: {rain} mm</p>
+        </>
+      )}
+
+      <p className="updated-at">
+        {loading
+          ? <Skeleton shape="text" width="38%" style={{ fontSize: "0.75rem" }} />
+          : `Updated: ${lastUpdated}`}
+      </p>
+
+      
     </article>
   )
 }
