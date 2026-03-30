@@ -1,46 +1,40 @@
-# Getting Started with Create React App
+# Weather App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple weather app built with React and TypeScript, using the [Open-Meteo](https://open-meteo.com/) API.
 
-## Available Scripts
+## Getting started
 
-In the project directory, you can run:
+Clone the repository and navigate to the project folder:
 
-### `npm start`
+```bash
+git clone https://github.com/eriktarelkin/ut-proovitoo-et.git
+cd proovitoo
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Install dependencies:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```bash
+npm install
+```
 
-### `npm test`
+Start the development server:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npm start
+```
 
-### `npm run build`
+The app runs at `http://localhost:3000`.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## What was done
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Adding locations** — locations can be added either by city name or by entering coordinates manually with a custom label (e.g. "Home, Office").
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Weather data** — fetches current temperature, wind speed, and precipitation for each location. Data refreshes automatically on page load using stored coordinates.
 
-### `npm run eject`
+**Persistent storage** — since i didn't have BE support: added cards are saved to localStorage so they survive page refreshes.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+**Card editing** — each card can be edited. The name and coordinates can be changed, and there is a helper button to generate coordinates from a city name.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Input validation** — coordinates are validated against allowed ranges before hitting the API. City names are checked for minimum length and matched against a regex pattern. API error messages are surfaced directly to the user.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Component structure** — shared `Button` component with variants (primary, secondary, danger, icon) and a `Card` component that handles display and editing of each location. Styles are split per component with plain CSS.

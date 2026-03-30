@@ -1,8 +1,8 @@
 import { useState } from "react"
-import { WeatherData } from "../types"
-import { CardUpdate } from "../hooks/useWeather"
-import { getCoordinates } from "../services/weatherApi"
-import { Button } from "./Button/Button"
+import { WeatherData } from "../../types"
+import { CardUpdate } from "../../hooks/useWeather"
+import { getCoordinates } from "../../services/weatherApi"
+import { Button } from "../Button/Button"
 import "./Card.css"
 
 type Props = Omit<WeatherData, "id"> & {
