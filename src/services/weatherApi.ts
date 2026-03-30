@@ -6,6 +6,7 @@ const WEATHER_BASE_URL = "https://api.open-meteo.com/v1/forecast"
 const WEATHER_PARAMS = [
   "temperature_2m",
   "wind_speed_10m",
+  "wind_direction_10m",
   "precipitation",
 ].join(",")
 

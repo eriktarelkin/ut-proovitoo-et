@@ -43,6 +43,7 @@ export const useWeather = () => {
               ...card,
               temperature: data.current.temperature_2m,
               windSpeed: data.current.wind_speed_10m,
+              windDirection: data.current.wind_direction_10m,
               rain: data.current.precipitation,
               updatedAt: Date.now(),
             }
@@ -86,6 +87,7 @@ export const useWeather = () => {
           longitude,
           temperature: data.current.temperature_2m,
           windSpeed: data.current.wind_speed_10m,
+          windDirection: data.current.wind_direction_10m,
           rain: data.current.precipitation,
           updatedAt: Date.now(),
         },
@@ -113,6 +115,7 @@ export const useWeather = () => {
           longitude,
           temperature: data.current.temperature_2m,
           windSpeed: data.current.wind_speed_10m,
+          windDirection: data.current.wind_direction_10m,
           rain: data.current.precipitation,
           updatedAt: Date.now(),
         },

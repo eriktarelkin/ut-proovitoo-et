@@ -8,7 +8,17 @@ import "./App.css"
 type AddMode = "city" | "coords"
 
 export const App = () => {
-  const { cards, loading, updatingId, initializing, error, addByCity, addByCoords, updateCard, deleteLocation } = useWeather()
+  const {
+    cards,
+    loading,
+    updatingId,
+    initializing,
+    error,
+    addByCity,
+    addByCoords,
+    updateCard,
+    deleteLocation,
+  } = useWeather()
 
   const [mode, setMode] = useState<AddMode>("city")
   const [cityInput, setCityInput] = useState("")
@@ -102,6 +112,7 @@ export const App = () => {
                 longitude={card.longitude}
                 temperature={card.temperature}
                 windSpeed={card.windSpeed}
+                 windDirection={card.windDirection}
                 rain={card.rain}
                 updatedAt={card.updatedAt}
                 onDelete={() => {}}
@@ -116,6 +127,7 @@ export const App = () => {
                 longitude={card.longitude}
                 temperature={card.temperature}
                 windSpeed={card.windSpeed}
+                 windDirection={card.windDirection}
                 rain={card.rain}
                 updatedAt={card.updatedAt}
                 onDelete={() => deleteLocation(card.id)}
@@ -130,6 +142,7 @@ export const App = () => {
             longitude={0}
             temperature={0}
             windSpeed={0}
+            windDirection={0}
             rain={0}
             updatedAt={0}
             onDelete={() => {}}

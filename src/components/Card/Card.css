@@ -1,40 +1,92 @@
 .card {
-  flex: 0 1 320px;
-  max-width: 320px;
+  flex: 1 1 280px;
+  max-width: 360px;
   padding: 16px 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
   background: #fafafa;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card-header {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.card-temperature {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+  min-width: 72px;
+  padding-top: 4px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15), -1px -1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card-temperature--warm {
+  color: #e53e3e;
+}
+
+.card-temperature--cold {
+  color: #3b82f6;
+}
+
+.card-info {
+  flex: 1;
+  min-width: 0;
 }
 
 .card-title-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 4px;
-}
-
-.card-title-row .buttons {
-  display: flex;
-  gap: 6px;
+  margin-bottom: 8px;
 }
 
 .card-title-row h2 {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
 }
 
-.card-coords {
-  font-size: 0.78rem;
-  color: #aaa;
-  margin: 0 0 12px;
+.card-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
+
+.card-stat {
+  display: flex;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+
+.stat-label {
+  color: #aaa;
+  min-width: 44px;
+}
+
+.stat-value {
+  color: #333;
+}
+
+.card-footer {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+}
+
+.updated-at {
+  font-size: 0.75rem;
+  color: #bbb;
+}
+
 
 .card-edit {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  margin-bottom: 12px;
 }
 
 .card-edit label {
@@ -83,15 +135,9 @@
   flex: 1;
 }
 
-.card p {
-  margin: 4px 0;
+.wind-arrow {
+  display: inline-block;
+  margin-left: 4px;
   font-size: 0.9rem;
-  color: #444;
-}
-
-.updated-at {
-  font-size: 0.75rem;
-  color: #999;
-  margin-top: 8px;
-  margin-bottom: 4px;
+  line-height: 1;
 }

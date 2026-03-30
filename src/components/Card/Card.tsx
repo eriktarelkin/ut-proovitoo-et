@@ -19,6 +19,7 @@ export const Card = ({
   longitude,
   temperature,
   windSpeed,
+  windDirection,
   rain,
   updatedAt,
   onDelete,
@@ -65,7 +66,7 @@ export const Card = ({
     setEditing(false)
   }
 
-  const lastUpdated = new Date(updatedAt).toLocaleTimeString([], {
+  const lastUpdated = new Date(updatedAt).toLocaleTimeString('it-IT', {
     hour: "2-digit",
     minute: "2-digit",
   })
@@ -89,7 +90,7 @@ export const Card = ({
             />
             <Button
               variant="icon"
-              label={resolving ? "..." : "→ coords"}
+              label={resolving ? "..." : "Get coordinates"}
               onClick={handleGenerateCoords}
               disabled={resolving}
               tooltip="Generate coordinates from name"
@@ -124,57 +125,72 @@ export const Card = ({
           </div>
         </div>
       ) : (
-        <div className="card-title-row">
-          <h2>
+        <div className="card-header">
+          <div 
+            className={
+              `card-temperature ${temperature >= 0 
+              ? "card-temperature--warm" 
+              : "card-temperature--cold"}`
+              }>
             {loading
-              ? <Skeleton shape="text" width="55%" style={{ fontSize: "1.1rem" }} />
-              : location}
-          </h2>
-          <div className="buttons">
-            {!loading && (
-              <Button
-                variant="secondary"
-                label="Edit"
-                onClick={() => setEditing(true)}
-              />
-            )}
+              ? <Skeleton shape="text" width="56px" style={{ fontSize: "3rem" }} />
+              : `${temperature}°`}
+          </div>
+
+          <div className="card-info">
+            <div className="card-title-row">
+              <h2>
+                {loading
+                  ? <Skeleton shape="text" width="55%" style={{ fontSize: "1.15rem" }} />
+                  : location}
+              </h2>
+              <div className="buttons">
+                {!loading && (
+                  <Button variant="secondary" label="Edit" onClick={() => setEditing(true)} />
+                )}
+              </div>
+            </div>
 
             {loading ? (
-              <Skeleton width="72px" height="34px" shape="rounded" />
+              <SkeletonGroup gap="6px">
+                <Skeleton shape="text" width="75%" />
+                <Skeleton shape="text" width="60%" />
+                <Skeleton shape="text" width="50%" />
+              </SkeletonGroup>
             ) : (
-              <Button variant="danger" label="Delete" onClick={onDelete} />
+              <div className="card-stats">
+                <div className="card-stat">
+                  <span className="stat-label">Coordinates</span>
+                  <span className="stat-value">{latitude.toFixed(4)}, {longitude.toFixed(4)}</span>
+                </div>
+                <div className="card-stat">
+                  <span className="stat-label">Wind</span>
+                  <span className="stat-value">{windSpeed} m/s</span>
+                  <span
+                      className="wind-arrow"
+                      style={{ transform: `rotate(${windDirection}deg)` }}
+                    >↑</span>
+                </div>
+                <div className="card-stat">
+                  <span className="stat-label">Rain</span>
+                  <span className="stat-value">{rain} mm</span>
+                </div>
+              </div>
             )}
           </div>
         </div>
       )}
 
-      <p className="card-coords">
+      <div className="card-footer">
         {loading
-          ? <Skeleton shape="text" width="42%" style={{ fontSize: "0.78rem" }} />
-          : `${latitude.toFixed(4)}, ${longitude.toFixed(4)}`}
-      </p>
-
-      {loading ? (
-        <SkeletonGroup gap="6px" style={{ marginBottom: "8px" }}>
-          <Skeleton shape="text" width="75%" />
-          <Skeleton shape="text" width="60%" />
-          <Skeleton shape="text" width="50%" />
-        </SkeletonGroup>
-      ) : (
-        <>
-          <p>Temperature: {temperature}°C</p>
-          <p>Wind Speed: {windSpeed} m/s</p>
-          <p>Rain: {rain} mm</p>
-        </>
-      )}
-
-      <p className="updated-at">
-        {loading
-          ? <Skeleton shape="text" width="38%" style={{ fontSize: "0.75rem" }} />
-          : `Updated: ${lastUpdated}`}
-      </p>
-
-      
+          ? <Skeleton width="72px" height="34px" shape="rounded" />
+          : <Button variant="danger" label="Delete" onClick={onDelete} />}
+        <span className="updated-at">
+          {loading
+            ? <Skeleton shape="text" width="80px" style={{ fontSize: "0.75rem" }} />
+            : `Updated: ${lastUpdated}`}
+        </span>
+      </div>
     </article>
   )
 }
