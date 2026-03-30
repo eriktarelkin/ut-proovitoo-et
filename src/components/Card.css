@@ -1,0 +1,92 @@
+.card {
+  flex: 1 1 240px;
+  max-width: 320px;
+  padding: 16px 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+.card-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.card-title-row h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.card-coords {
+  font-size: 0.78rem;
+  color: #aaa;
+  margin: 0 0 12px;
+}
+
+.card-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.card-edit label {
+  font-size: 0.75rem;
+  color: #888;
+  margin-top: 4px;
+}
+
+.card-edit-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.card-edit-row .card-edit-input {
+  flex: 1;
+}
+
+.card-edit-input {
+  padding: 5px 8px;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.card-edit-input:focus {
+  border-color: #555;
+}
+
+.resolve-error {
+  font-size: 0.78rem;
+  color: #c0392b;
+  margin: 2px 0 0;
+}
+
+.card-edit-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.card-edit-actions .btn {
+  flex: 1;
+}
+
+.card p {
+  margin: 4px 0;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.updated-at {
+  font-size: 0.75rem;
+  color: #999;
+  margin-top: 8px;
+  margin-bottom: 4px;
+}
