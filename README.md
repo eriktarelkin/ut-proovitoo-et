@@ -23,6 +23,12 @@ Start the development server:
 npm start
 ```
 
+Start the tests:
+
+```bash
+npm test
+```
+
 The app runs at `http://localhost:3000`.
 
 ## What was done
@@ -31,7 +37,7 @@ The app runs at `http://localhost:3000`.
 
 **Weather data** — fetches current temperature, wind speed, and precipitation for each location. Data refreshes automatically on page load using stored coordinates.
 
-**Persistent storage** — since i didn't have BE support: added cards are saved to localStorage so they survive page refreshes.
+**Persistent storage** — since i didn't have BE support: added cards are saved to localStorage so they survive page refreshes. Thought of using Redux crossed my mind, but because the scale of this app is small, i decided not to use it.
 
 **Card editing** — each card can be edited. The name and coordinates can be changed, and there is a helper button to generate coordinates from a city name.
 
